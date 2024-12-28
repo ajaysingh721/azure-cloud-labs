@@ -1,11 +1,7 @@
 name: ACL ACR web
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'src/web/**'
+  workflow_dispatch:
 
 env:
   ACR_REGISTRY: 'aclacr'
