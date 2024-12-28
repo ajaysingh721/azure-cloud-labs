@@ -35,13 +35,10 @@ runs:
     - name: Login to Azure Container Registry
       uses: azure/login@v2
       with:
-        auth-type: IDENTITY
         client-id: ${{ inputs.client-id }}
         tenant-id: ${{ inputs.tenant-id }}
         subscription-id: ${{ inputs.subscription-id }}
-        enable-AzPSSession: true
 
     - name: Build and push image to Azure Container Registry
-      shell: bash
       run: |
         az acr build --registry ${{ inputs.registry-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
