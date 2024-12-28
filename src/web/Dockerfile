@@ -7,13 +7,13 @@ FROM node:lts-bullseye as build
 WORKDIR /app
 
 # Copy the file from your host to your current location
-COPY package*.json ./
+COPY package*.json ./app/
 
 # Run the command inside your image filesystem
 RUN npm install
 
 # Copy the rest of your app's source code from your host to your image filesystem
-COPY . ./app
+COPY ./ ./app
 
 # Add agument to the command
 ARG configuration=production
