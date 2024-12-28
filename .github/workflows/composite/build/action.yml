@@ -35,11 +35,7 @@ runs:
     - name: Login to Azure Container Registry
       uses: azure/login@v2
       with:
-        auth-type: IDENTITY
-        client-id: ${{ inputs.client-id }}
-        tenant-id: ${{ inputs.tenant-id }}
-        subscription-id: ${{ inputs.subscription-id }}
-        enable-AzPSSession: true
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Build and push image to Azure Container Registry
       shell: bash

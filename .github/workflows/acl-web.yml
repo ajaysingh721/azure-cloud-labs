@@ -1,11 +1,6 @@
 name: ACL ACR web
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'src/web/**'
   workflow_dispatch:
 
 env:
@@ -23,7 +18,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    runs-on: self-hosted
+    runs-on: ubunty-latest
 
     steps:
       - name: Checkout code
