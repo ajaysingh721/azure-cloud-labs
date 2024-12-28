@@ -22,7 +22,7 @@ inputs:
   dockerfile-path:
     description: "Path to the Dockerfile"
     required: true
-  acr-name:
+  registry-name:
     description: "Name of the Azure Container Registry"
     required: true
   source-root-path:
