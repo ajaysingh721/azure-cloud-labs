@@ -40,5 +40,6 @@ runs:
         subscription-id: ${{ inputs.subscription-id }}
 
     - name: Build and push image to Azure Container Registry
+      shell: bash
       run: |
         az acr build --registry ${{ inputs.registry-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
