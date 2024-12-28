@@ -35,6 +35,7 @@ runs:
     - name: Login to Azure Container Registry
       uses: azure/login@v2
       with:
+        auth-type: IDENTITY
         client-id: ${{ inputs.client-id }}
         tenant-id: ${{ inputs.tenant-id }}
         subscription-id: ${{ inputs.subscription-id }}
