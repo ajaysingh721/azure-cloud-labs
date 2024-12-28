@@ -29,25 +29,17 @@ inputs:
     description: 'Path to the source root'
     required: true
 
-on:
-  workflow_dispatch:
+runs:
+  using: 'composite'
+  steps:
+    - name: Login to Azure Container Registry
+      uses: azure/login@v2
+      with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Login to Azure Container Registry
-        uses: azure/login@v2
-        with:
-          client-id: ${{ inputs.client-id }}
-          tenant-id: ${{ inputs.tenant-id }}
-          subscription-id: ${{ inputs.subscription-id }}
-
-      - name: Build and push image to Azure Container Registry
-        shell: bash
-        run: |
-          az acr build --registry ${{ inputs.registry-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
+    - name: Build and push image to Azure Container Registry
+      shell: bash
+      run: |
+        az acr build --registry ${{ inputs.registry-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
