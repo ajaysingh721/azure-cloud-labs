@@ -37,7 +37,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Login to Azure Container Registry
         uses: azure/login@v2
@@ -49,6 +50,6 @@ jobs:
         - name: Build and push image to Azure Container Registry
         shell: bash
         run: |
-          az acr build --registry ${{ inputs.acr-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
+          az acr build --registry ${{ inputs.registry-name }} --image ${{ inputs.image-name }}:${{ inputs.image-tag }} --file ${{ inputs.dockerfile-path }}
 
 
