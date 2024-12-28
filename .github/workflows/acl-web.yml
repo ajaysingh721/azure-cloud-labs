@@ -1,4 +1,4 @@
-name: ACL ACR web
+name: ACL web
 
 on:
   workflow_dispatch:

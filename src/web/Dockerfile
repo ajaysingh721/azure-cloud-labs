@@ -22,9 +22,10 @@ ARG configuration=production
 RUN npm run build -- --output-path=./dist --configuration $configuration
 
 # nginx stage
-FROM nginx:nginx-unprivileged:stable-bullseye-perl as host
+FROM nginx/nginx-unprivileged:stable-bullseye-perl as host
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
 
 
