@@ -12,6 +12,7 @@ env:
   AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
 jobs:
   build:
@@ -34,3 +35,4 @@ jobs:
           image-tag: ${{ github.run_number }}
           dockerfile-path: ${{ env.DOCKERFILE_PATH }}
           source-root-path: ${{ env.SCOURCE_ROOT_PATH }}
+          credentials: ${{ env.AZURE_CREDENTIALS }}

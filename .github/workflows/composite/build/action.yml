@@ -28,6 +28,9 @@ inputs:
   source-root-path:
     description: 'Path to the source root'
     required: true
+  credentials:
+    description: 'Azure credentials'
+    required: true
 
 runs:
   using: 'composite'
@@ -35,7 +38,7 @@ runs:
     - name: Login to Azure Container Registry
       uses: azure/login@v2
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ inputs.credentials }}
 
     - name: Build and push image to Azure Container Registry
       shell: bash
