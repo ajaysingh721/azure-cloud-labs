@@ -5,15 +5,15 @@ on:
     branches:
       - master
     paths:
-      - "src/web/**"
+      - 'src/web/**'
   workflow_dispatch:
 
 env:
-  ACR_REGISTRY: aclacr
-  IMAGE_NAME: aclweb
-  DOCKERFILE_PATH: src/web/Dockerfile
-  AZURE_RESOURCE_GROUP: 1-a9eba0cf-playground-sandbox
-  SCOURCE_ROOT_PATH: src/web
+  ACR_REGISTRY: 'aclacr'
+  IMAGE_NAME: 'aclweb'
+  DOCKERFILE_PATH: 'src/web/Dockerfile'
+  AZURE_RESOURCE_GROUP: '1-a9eba0cf-playground-sandbox'
+  SCOURCE_ROOT_PATH: 'src/web'
 jobs:
   build:
     permissions:
