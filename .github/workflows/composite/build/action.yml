@@ -39,6 +39,7 @@ runs:
         tenant-id: ${{ inputs.tenant-id }}
         subscription-id: ${{ inputs.subscription-id }}
         enable-AzPSSession: true
+        allow-no-subscriptions: true
 
     - name: Build and push image to Azure Container Registry
       shell: bash
