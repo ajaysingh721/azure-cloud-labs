@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME="1-1899c343-playground-sandbox"
+RESOURCE_GROUP_NAME="1-0c081f8e-playground-sandbox"
 STORAGE_ACCOUNT_NAME="tfstate1899c343"
 CONTAINER_NAME="terraform-state"
 

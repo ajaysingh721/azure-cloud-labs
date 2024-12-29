@@ -1,4 +1,4 @@
-name: Terraform Azure Services
+name: 1. Terraform Azure Services
 
 on:
   workflow_dispatch:
