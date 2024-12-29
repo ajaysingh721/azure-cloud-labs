@@ -1,0 +1,47 @@
+name: Azure Services
+
+on:
+  workflow_dispatch:
+    inputs:
+      choice:
+        type: choice
+        description: 'Choose the Terraform action'
+        required: true
+        default: 'apply'
+        options:
+          - 'apply'
+          - 'destroy'
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./iac/terraform/azure-services
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform format check
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan -out=main.tfplan -input=false --no-color
+
+      - name: Terraform ${{ inputs.choice }}
+        run: terraform ${{ inputs.choice }} -auto-approve --input=false main.tfplan
