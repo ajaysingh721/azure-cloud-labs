@@ -7,7 +7,7 @@ variable "location" {
 variable "rg" {
   description = "The name of the resource group to deploy resources"
   type        = string
-  default     = "1-1899c343-playground-sandbox"
+  default     = "1-0838e53c-playground-sandbox"
 }
 
 variable "prefix" {
