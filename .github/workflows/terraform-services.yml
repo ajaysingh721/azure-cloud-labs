@@ -51,7 +51,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false --no-color
+        run: terraform plan -out=main.tfplan -input=false -no-color
 
       - name: Terraform ${{ inputs.choice }}
         run: terraform ${{ inputs.choice }} -auto-approve --input=false main.tfplan
