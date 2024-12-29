@@ -3,9 +3,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.13.0"
+      version = "~> 3.0"
     }
   }
+
+  required_version = ">= 0.14.0"
 
   backend "azurerm" {
     resource_group_name  = "1-1899c343-playground-sandbox"
@@ -14,4 +16,8 @@ terraform {
     key                  = "terraform.tfstate"
   }
 
+}
+
+provider "azurerm" {
+  features {}
 }
