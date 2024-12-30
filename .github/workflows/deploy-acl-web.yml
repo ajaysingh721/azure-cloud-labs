@@ -21,8 +21,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and push image to ACR
-        uses: ./.github/workflows/composite/build
+      - name: Deploy image to AWA
+        uses: ./.github/workflows/composite/deploy
         with:
           image-name: ${{ env.IMAGE_NAME }}
           registry-name: ${{ env.ACR_REGISTRY }}
