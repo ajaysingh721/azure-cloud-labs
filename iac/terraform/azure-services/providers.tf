@@ -3,15 +3,14 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.13.0"
+      version = ">= 2.0"
     }
   }
 
-  required_version = ">= 0.14.0"
+  required_version = ">= 0.14.9"
 
   backend "azurerm" {
-    resource_group_name  = "1-0838e53c-playground-sandbox"
-    storage_account_name = "tfstate1899c343"
+    storage_account_name = "terraformstate1231-sa"
     container_name       = "terraform-state"
     key                  = "terraform.tfstate"
   }
@@ -19,6 +18,6 @@ terraform {
 }
 
 provider "azurerm" {
-  resource_provider_registrations = "none"
+
   features {}
 }

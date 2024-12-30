@@ -7,11 +7,17 @@ variable "location" {
 variable "rg" {
   description = "The name of the resource group to deploy resources"
   type        = string
-  default     = "1-0838e53c-playground-sandbox"
 }
 
 variable "prefix" {
   description = "A prefix to add to all resources"
   type        = string
   default     = "acl"
+}
+
+
+variable "tenant_id" {
+  description = "The tenant ID for the Azure subscription"
+  type        = string
+
 }
