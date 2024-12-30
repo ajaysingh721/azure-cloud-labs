@@ -38,4 +38,4 @@ jobs:
           credentials: ${{ env.AZURE_CREDENTIALS }}
           acr-username: ${{ env.ACR_USERNAME }}
           acr-password: ${{ env.ACR_PASSWORD }}
-          aci-name: ${{ env.WEB_APP_NAME }}
+          web-app-name: ${{ env.WEB_APP_NAME }}
