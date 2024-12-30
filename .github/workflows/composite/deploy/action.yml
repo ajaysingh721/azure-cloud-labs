@@ -37,7 +37,9 @@ runs:
         creds: ${{ inputs.credentials }}
 
     - name: Deploy to Azure Web App
-      run: az webapp config container set --name aclappconfig \
+      shell: bash
+      run: |
+        az webapp config container set --name aclappconfig \
         --resource-group ${{inputs.resource-group}} \
         --container-image-name ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
         --container-registry-server-url https://${{ inputs.registry-name }}.azurecr.io \
