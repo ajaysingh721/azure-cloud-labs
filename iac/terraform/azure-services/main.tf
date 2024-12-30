@@ -24,7 +24,7 @@ resource "azurerm_key_vault" "kv" {
   name                            = "${var.prefix}kv"
   resource_group_name             = var.rg
   location                        = var.location
-  sku_name                        = "Standard"
+  sku_name                        = "standard"
   tenant_id                       = var.tenant_id
   soft_delete_retention_days      = 7
   purge_protection_enabled        = false
