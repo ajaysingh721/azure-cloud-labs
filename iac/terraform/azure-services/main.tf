@@ -6,8 +6,8 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = false
 }
 
-resource "azurerm_app_service_plan" "web" {
-  name                = "${var.prefix}web"
+resource "azurerm_app_service_plan" "asp" {
+  name                = "${var.prefix}asp"
   location            = var.location
   resource_group_name = var.rg
   kind                = "Linux"
@@ -23,7 +23,7 @@ resource "azurerm_app_service" "app" {
   name                = "${var.prefix}app"
   location            = var.location
   resource_group_name = var.rg
-  app_service_plan_id = azurerm_app_service_plan.web.id
+  app_service_plan_id = azurerm_app_service_plan.asp.id
 
   site_config {
     linux_fx_version = "DOCKER|nginx"
