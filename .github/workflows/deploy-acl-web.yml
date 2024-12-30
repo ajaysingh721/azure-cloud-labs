@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_RESOURCE_GROUP: '${{ vars.AZURE_RESOURCE_GROUP }}'
+  AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
   AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
   ACR_IMAGE_NAME: ${{ vars.WEB_APP_IMAGE_NAME }}
-  ACR_USERNAME: '${{ vars.ACR_USERNAME }}'
-  ACR_PASSWORD: '${{ secrets.ACR_PASSWORD }}'
+  ACR_USERNAME: ${{ vars.ACR_USERNAME}}
+  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
           registry-name: ${{ env.ACR_REGISTRY }}
           image-tag: ${{ github.run_number }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
-          acr-username: '${{ env.ACR_USERNAME }}'
-          acr-password: '${{ env.ACR_PASSWORD }}'
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
-          resource-group: '${{ env.AZURE_RESOURCE_GROUP }}'
+          acr-username: ${{ env.ACR_USERNAME }}
+          acr-password: ${{ env.ACR_PASSWORD }}
+          resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
