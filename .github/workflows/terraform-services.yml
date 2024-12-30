@@ -45,7 +45,7 @@ jobs:
         continue-on-error: true
 
       - name: Terraform init
-        run: terraform init -var="client_id=${{env.AZURE_RESOURCE_GROUP}}"
+        run: terraform init
 
       - name: Terraform validate
         id: validate
