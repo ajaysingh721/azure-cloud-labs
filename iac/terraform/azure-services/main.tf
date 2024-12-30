@@ -45,3 +45,26 @@ resource "azurerm_linux_web_app" "lwa" {
   depends_on = [azurerm_service_plan.asp]
 }
 
+resource "azurerm_container_group" "acg" {
+  name                = "${var.prefix}-acg-${random_integer.ri.result}"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+
+  container {
+    name   = var.ci_name
+    image  = "${azurerm_container_registry.acr.login_server}/${var.acr_name}:v1"
+    cpu    = "0.5"
+    memory = "1.5"
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
+  }
+
+  os_type = "Linux"
+  tags = {
+    environment = "dev"
+  }
+
+}
+

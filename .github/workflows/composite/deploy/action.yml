@@ -26,6 +26,9 @@ inputs:
   acr-password:
     description: 'Azure Container Registry password'
     required: true
+  acr-ci-name:
+    description: 'Azure Container intance name'
+    required: true
 
 runs:
   using: 'composite'
@@ -39,7 +42,7 @@ runs:
     - name: Deploy to Azure Web App
       shell: bash
       run: |
-        az webapp config container set --name aclappconfig \
+        az webapp config container set --name ${{inputs.acr-ci-name}} \
         --container-registry-url https://${{ inputs.registry-name }}.azurecr.io \
         --container-image-name ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
         --container-registry-user ${{ inputs.acr-username }} \

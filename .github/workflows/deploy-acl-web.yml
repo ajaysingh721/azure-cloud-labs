@@ -11,10 +11,11 @@ env:
   AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
   AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
-  ACR_IMAGE_NAME: ${{ vars.WEB_APP_IMAGE_NAME }}
+  ACR_NAME: ${{ vars.ACR_NAME }}
+  ACR_IMAGE_NAME: ${{ vars.ACR_IMAGE_NAME }}
   ACR_USERNAME: ${{ vars.ACR_USERNAME}}
   ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+  WEB_APP_NAME: ${{ vars.WEB_APP_NAME }}
 
 jobs:
   build:
@@ -32,7 +33,7 @@ jobs:
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
           resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
           image-name: ${{ env.ACR_IMAGE_NAME }}
-          registry-name: ${{ env.ACR_REGISTRY }}
+          registry-name: ${{ env.ACR_NAME }}
           image-tag: ${{ github.run_number }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
           acr-username: ${{ env.ACR_USERNAME }}

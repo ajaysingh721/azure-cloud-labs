@@ -16,3 +16,22 @@ variable "tenant_id" {
   type        = string
 }
 
+variable "ci_name" {
+  description = "The name of the Container Instance"
+  type        = string
+  default     = "aclacr"
+}
+
+variable "acr_name" {
+  description = "The name of the Azure Container Registry"
+  type        = string
+  default     = "aclci"
+}
+
+variable "act_tag_name" {
+  description = "The name of the tag for the Azure Container Registry"
+  type        = string
+  default     = "v1"
+
+}
+
