@@ -11,7 +11,7 @@ resource "random_integer" "ri" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "${var.prefix}acr${random_integer.ri.result}"
+  name                = "${var.prefix}acr"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   sku                 = "Standard"

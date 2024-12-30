@@ -1,1 +1,56 @@
-name:
+name: ACR to Azure Web App
+description: Deploy a container image to Azure Web App
+
+inputs:
+  client-id:
+    description: 'Azure client ID'
+    required: true
+  tenant-id:
+    description: 'Azure tenant ID'
+    required: true
+  subscription-id:
+    description: 'Azure subscription ID'
+    required: true
+  image-name:
+    description: 'Name of the image to deploy'
+    required: true
+  registry-name:
+    description: 'Name of the Azure Container Registry'
+    required: true
+  image-tag:
+    description: 'Tag of the image to deploy'
+    required: true
+  dockerfile-path:
+    description: 'Path to the Dockerfile'
+    required: true
+  source-root-path:
+    description: 'Path to the source code'
+    required: true
+  credentials:
+    description: 'Azure credentials'
+    required: true
+
+runs:
+    using: 'composite'
+    steps:
+        - name: Deploy image to Azure Web App
+        uses: ./.github/workflows/composite/deploy
+        with:
+            client-id: ${{ inputs.client-id }}
+            tenant-id: ${{ inputs.tenant-id }}
+            subscription-id: ${{ inputs.subscription-id }}
+            image-name: ${{ inputs.image-name }}
+            registry-name: ${{ inputs.registry-name }}
+            image-tag: ${{ inputs.image-tag }}
+            credentials: ${{ inputs.credentials }}
+
+       - name: Azure login
+         uses: azure/login@v1
+         with:
+           creds: ${{ inputs.credentials }}
+
+       - name: Deploy to Azure Web App
+         run: az webapp config container set --name aclweb --resource-group 1-1899c343-playground-sandbox --docker-custom-image-name aclacr.azurecr.io/aclweb:${{ inputs.image-tag }} --docker-registry-server-url https://aclacr.azurecr.io --subscription ${{ inputs.subscription-id }}
+       
+         
+
