@@ -27,6 +27,6 @@ resource "azurerm_linux_web_app" "lwa" {
   }
 
   site_config {
-    linux_fx_version = "DOCKER|${azurerm_container_registry.acr.login_server}/app:latest"
+
   }
 }
