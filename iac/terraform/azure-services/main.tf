@@ -8,7 +8,7 @@ resource "azurerm_container_registry" "acr" {
 
 
 resource "azurerm_service_plan" "asp" {
-  name                = "${var.prefix}asp"
+  name                = "${var.prefix}asp121"
   resource_group_name = var.rg
   location            = var.location
   sku_name            = "B1"
