@@ -29,7 +29,5 @@ jobs:
           registry-name: ${{ env.ACR_REGISTRY }}
           image-tag: ${{ github.run_number }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
-          acr-username: ${{ env.ACR_USERNAME }}
-          acr-password: ${{ env.ACR_PASSWORD }}
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
           resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
