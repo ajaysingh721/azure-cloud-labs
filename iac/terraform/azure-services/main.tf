@@ -49,14 +49,16 @@ resource "azurerm_container_group" "acg" {
   name                = "${var.prefix}-acg-${random_integer.ri.result}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
+  ip_address_type     = "Public"
+  restart_policy      = var.restart_policy
 
   container {
     name   = var.aci_name
-    image  = "mcr.microsoft.com/azuredocs/hello-world:latest"
-    cpu    = "1"
-    memory = "4"
+    image  = var.image
+    cpu    = var.cpu_cores
+    memory = var.memory_in_gb
     ports {
-      port     = 443
+      port     = var.port
       protocol = "TCP"
     }
   }
