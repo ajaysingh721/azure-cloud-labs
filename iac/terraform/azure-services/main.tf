@@ -51,7 +51,7 @@ resource "azurerm_container_group" "acg" {
   location            = data.azurerm_resource_group.rg.location
 
   container {
-    name   = var.ci_name
+    name   = var.aci_name
     image  = "${azurerm_container_registry.acr.login_server}/${var.acr_name}:v1"
     cpu    = "0.5"
     memory = "1.5"

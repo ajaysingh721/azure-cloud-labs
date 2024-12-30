@@ -16,7 +16,7 @@ variable "tenant_id" {
   type        = string
 }
 
-variable "ci_name" {
+variable "aci_name" {
   description = "The name of the Container Instance"
   type        = string
   default     = "aclacr"
