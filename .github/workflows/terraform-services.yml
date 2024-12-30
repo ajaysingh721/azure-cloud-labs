@@ -27,6 +27,7 @@ jobs:
       AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
       ACR_USERNAME: ${{ vars.ACR_USERNAME }}
       ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+      TF_LOG: INFO
 
     defaults:
       run:
