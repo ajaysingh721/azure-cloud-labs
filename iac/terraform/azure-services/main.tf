@@ -53,8 +53,8 @@ resource "azurerm_container_group" "acg" {
   container {
     name   = var.aci_name
     image  = "mcr.microsoft.com/azuredocs/hello-world:latest"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "1"
+    memory = "4"
     ports {
       port     = 443
       protocol = "TCP"
