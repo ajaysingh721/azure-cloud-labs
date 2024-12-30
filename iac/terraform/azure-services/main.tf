@@ -28,7 +28,6 @@ resource "azurerm_service_plan" "asp" {
 }
 
 resource "azurerm_linux_web_app" "lwa" {
-
   name                = "${var.prefix}-lwa-${random_integer.ri.result}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
@@ -40,6 +39,7 @@ resource "azurerm_linux_web_app" "lwa" {
 
   site_config {
     minimum_tls_version = "1.2"
+
   }
 
   depends_on = [azurerm_service_plan.asp]

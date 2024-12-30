@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME="1-79b9cb16-playground-sandbox"
+RESOURCE_GROUP_NAME=$(az group list --query [].name --output tsv)
 STORAGE_ACCOUNT_NAME="terraformstate1231sa"
 CONTAINER_NAME="terraform-state"
 
