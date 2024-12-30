@@ -29,7 +29,7 @@ jobs:
       ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
       ACR_NAME: ${{ vars.ACR_NAME }}
       ACR_IMAGE_NAME: ${{ vars.ACR_NAME }}
-      ACI_NAME: ${{ vars.ACI_NAME }}
+      WEB_APP_NAME: ${{ vars.WEB_APP_NAME }}
       TF_LOG: INFO
 
     defaults:
@@ -57,7 +57,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="aci_name=${{env.ACI_NAME}}"
+        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}"
 
       - name: Terraform ${{ inputs.choice }}
-        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="aci_name=${{env.ACI_NAME}}"
+        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}"

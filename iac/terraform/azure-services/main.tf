@@ -28,7 +28,7 @@ resource "azurerm_service_plan" "asp" {
 }
 
 resource "azurerm_linux_web_app" "lwa" {
-  name                = "${var.prefix}-lwa-${random_integer.ri.result}"
+  name                = var.web_app_name
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   service_plan_id     = azurerm_service_plan.asp.id

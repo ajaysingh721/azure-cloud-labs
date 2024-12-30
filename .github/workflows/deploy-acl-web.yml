@@ -15,7 +15,7 @@ env:
   ACR_IMAGE_NAME: ${{ vars.ACR_IMAGE_NAME }}
   ACR_USERNAME: ${{ vars.ACR_USERNAME}}
   ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
-  ACI_NAME: ${{ vars.ACI_NAME }}
+  WEB_APP_NAME: ${{ vars.WEB_APP_NAME }}
 
 jobs:
   build:
@@ -38,4 +38,4 @@ jobs:
           credentials: ${{ env.AZURE_CREDENTIALS }}
           acr-username: ${{ env.ACR_USERNAME }}
           acr-password: ${{ env.ACR_PASSWORD }}
-          aci-name: ${{ env.ACI_NAME }}
+          aci-name: ${{ env.WEB_APP_NAME }}
