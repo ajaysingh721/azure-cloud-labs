@@ -40,9 +40,9 @@ runs:
       shell: bash
       run: |
         az webapp config container set --name aclappconfig \
-        --resource-group ${{inputs.resource-group}} \
+        --container-registry-url https://${{ inputs.registry-name }}.azurecr.io \
         --container-image-name ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
-        --container-registry-server-url https://${{ inputs.registry-name }}.azurecr.io \
+        --container-registry-password ${{ inputs.acr-password }}\
+        --container-registry-user ${{ inputs.acr-username }}\
+        --resource-group ${{inputs.resource-group}} \
         --subscription ${{ inputs.subscription-id }}
-        --container-registry-password ${{ inputs.acr-password }}
-        --container-registry-username ${{ inputs.acr-username }}
