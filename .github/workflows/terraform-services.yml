@@ -25,6 +25,8 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_ACCESS_KEY: ${{ secrets.TF_STORAGE_ACCOUNT_KEY }}
       AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+      ACR_USERNAME: ${{ vars.ACR_USERNAME }}
+      ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 
     defaults:
       run:
@@ -51,7 +53,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
+        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_username=${{env.ACR_USERNAME}}" -var="acr_password=${{env.ACR_PASSWORD}}"
 
       - name: Terraform ${{ inputs.choice }}
-        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
+        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_username=${{env.ACR_USERNAME}}" -var="acr_password=${{env.ACR_PASSWORD}}"
