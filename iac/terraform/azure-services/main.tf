@@ -52,7 +52,7 @@ resource "azurerm_container_group" "acg" {
 
   container {
     name   = var.aci_name
-    image  = "${azurerm_container_registry.acr.login_server}/${var.acr_name}:v1"
+    image  = "mcr.microsoft.com/azuredocs/hello-world:latest"
     cpu    = "0.5"
     memory = "1.5"
     ports {
