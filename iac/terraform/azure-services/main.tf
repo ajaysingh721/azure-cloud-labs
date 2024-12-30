@@ -66,5 +66,7 @@ resource "azurerm_container_group" "acg" {
     environment = "dev"
   }
 
+  depends_on = [azurerm_container_registry.acr]
+
 }
 
