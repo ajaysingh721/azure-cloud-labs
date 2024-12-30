@@ -1,7 +1,7 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME="1-0c081f8e-playground-sandbox"
-STORAGE_ACCOUNT_NAME="tfstate1899c343"
+RESOURCE_GROUP_NAME="1-79b9cb16-playground-sandbox"
+STORAGE_ACCOUNT_NAME="terraformstate1231sa"
 CONTAINER_NAME="terraform-state"
 
 # Create a resource group
