@@ -52,7 +52,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false -no-color -var="resource_group_name=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
+        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
 
       - name: Terraform ${{ inputs.choice }}
         run: terraform ${{ inputs.choice }} -auto-approve --input=false main.tfplan
