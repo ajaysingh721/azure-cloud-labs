@@ -54,7 +54,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_username=${{env.ACR_USERNAME}}" -var="acr_password=${{env.ACR_PASSWORD}}"
+        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
 
       - name: Terraform ${{ inputs.choice }}
-        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_username=${{env.ACR_USERNAME}}" -var="acr_password=${{env.ACR_PASSWORD}}"
+        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}"
