@@ -34,7 +34,6 @@ jobs:
           resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
           image-name: ${{ env.ACR_IMAGE_NAME }}
           registry-name: ${{ env.ACR_NAME }}
-          image-tag: ${{ github.run_number }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
           acr-username: ${{ env.ACR_USERNAME }}
           acr-password: ${{ env.ACR_PASSWORD }}

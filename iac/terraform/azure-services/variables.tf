@@ -38,7 +38,7 @@ variable "acr_name" {
 variable "act_tag_name" {
   description = "The name of the tag for the Azure Container Registry"
   type        = string
-  default     = "v1"
+  default     = "latest"
 }
 
 variable "image" {
