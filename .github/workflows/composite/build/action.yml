@@ -4,14 +4,8 @@ name: Build and push image to ACR
 description: Build and push the image to Azure Container Registry
 
 inputs:
-  client-id:
-    description: 'Service principal client ID'
-    required: true
-  tenant-id:
-    description: 'Service principal tenant ID'
-    required: true
-  subscription-id:
-    description: 'Azure subscription ID'
+  registry-name:
+    description: 'Name of the Azure Container Registry'
     required: true
   image-name:
     description: 'Name of the image'
@@ -21,9 +15,6 @@ inputs:
     required: true
   dockerfile-path:
     description: 'Path to the Dockerfile'
-    required: true
-  registry-name:
-    description: 'Name of the Azure Container Registry'
     required: true
   source-root-path:
     description: 'Path to the source root'
