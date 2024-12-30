@@ -42,7 +42,7 @@ runs:
         az webapp config container set --name aclappconfig \
         --container-registry-url https://${{ inputs.registry-name }}.azurecr.io \
         --container-image-name ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
-        --container-registry-password ${{ inputs.acr-password }}\
-        --container-registry-user ${{ inputs.acr-username }}\
+        --container-registry-user ${{ inputs.acr-username }} \
+        --container-registry-password ${{ inputs.acr-password }} \
         --resource-group ${{inputs.resource-group}} \
         --subscription ${{ inputs.subscription-id }}
