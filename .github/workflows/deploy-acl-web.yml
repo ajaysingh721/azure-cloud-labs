@@ -6,6 +6,7 @@ on:
 env:
   AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
   AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
   ACR_IMAGE_NAME: ${{ vars.WEB_APP_IMAGE_NAME }}
   ACR_USERNAME: ${{ vars.ACR_USERNAME }}
@@ -30,4 +31,5 @@ jobs:
           credentials: ${{ env.AZURE_CREDENTIALS }}
           acr-username: ${{ env.ACR_USERNAME }}
           acr-password: ${{ env.ACR_PASSWORD }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          resource-group: ${{ env.AZURE_RESOURCE_GROUP }}

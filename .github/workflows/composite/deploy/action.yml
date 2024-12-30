@@ -31,14 +31,14 @@ runs:
     using: 'composite'
 
        - name: Azure login
-         uses: azure/login@v1
+         uses: azure/login@v2
          with:
            creds: ${{ inputs.credentials }}
 
        - name: Deploy to Azure Web App
          run: az webapp config container set --name aclappconfig \
               --resource-group ${{inputs.resource-group}} \
-              --container-image-name aclacr.azurecr.io/aclweb:${{ inputs.image-tag }} \
+              --container-image-name ${{inputs.registry-name}}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
               --container-registry-server-url https://aclacr.azurecr.io \
               --subscription ${{ inputs.subscription-id }}
               --container-registry-password ${{ inputs.acr-password }}
