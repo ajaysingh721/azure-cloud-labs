@@ -40,7 +40,6 @@ resource "azurerm_linux_web_app" "lwa" {
 
   site_config {
     minimum_tls_version = "1.2"
-    linux_fx_version    = "DOCKER|${azurerm_container_registry.acr.login_server}/${var.acr_image_name}:${var.tag_name}"
   }
 
   depends_on = [azurerm_service_plan.asp]
