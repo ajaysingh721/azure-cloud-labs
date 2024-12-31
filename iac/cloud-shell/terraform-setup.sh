@@ -12,3 +12,7 @@ az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_
 
 # Create blob container
 az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT_NAME
+
+az storage account keys list --account-name $STORAGE_ACCOUNT_NAME --resource-group $RESOURCE_GROUP_NAME --query "[0].value" --output tsv
+
+# az storage account keys list --account-name terraformstate1231sa  --resource-group $RESOURCE_GROUP_NAME --query "[0].value" --output tsv
