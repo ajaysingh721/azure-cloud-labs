@@ -35,6 +35,12 @@ variable "acr_name" {
   default     = "aclci"
 }
 
+variable "acr_image_name" {
+  description = "The name of the image in the Azure Container Registry"
+  type        = string
+  default     = "aclwebimage"
+}
+
 variable "tag_name" {
   description = "The name of the tag for the Azure Container Registry"
   type        = string
