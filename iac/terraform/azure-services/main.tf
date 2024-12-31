@@ -65,30 +65,3 @@ resource "azurerm_application_insights" "app_insights" {
 
 }
 
-resource "azurerm_container_group" "acg" {
-  name                = "${var.prefix}-acg-${random_integer.ri.result}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
-  ip_address_type     = "Public"
-  restart_policy      = var.restart_policy
-
-  container {
-    name   = var.aci_name
-    image  = var.image
-    cpu    = var.cpu_cores
-    memory = var.memory_in_gb
-    ports {
-      port     = var.port
-      protocol = "TCP"
-    }
-  }
-
-  os_type = "Linux"
-  tags = {
-    environment = "dev"
-  }
-
-  depends_on = [azurerm_container_registry.acr]
-
-}
-
