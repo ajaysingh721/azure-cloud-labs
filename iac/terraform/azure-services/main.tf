@@ -15,28 +15,19 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   sku                 = "Standard"
-  admin_enabled       = false
+  admin_enabled       = true
 
   tags = {
     environment = "dev"
   }
+
+  identity {
+    type         = "SystemAssigned"
+    identity_ids = [data.azurerm_client_config.current.object_id]
+  }
+
+
 }
-
-// System assigned managed identity
-resource "azurerm_user_assigned_identity" "uai" {
-  name                = "${var.prefix}-uai-${random_integer.ri.result}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
-}
-
-resource "azurerm_role_assignment" "acr_role_assignment" {
-  principal_id         = azurerm_user_assigned_identity.uai.principal_id
-  role_definition_name = "AcrPull"
-  scope                = azurerm_container_registry.acr.id
-
-  depends_on = [azurerm_container_registry.acr, azurerm_user_assigned_identity.uai]
-}
-
 
 resource "azurerm_service_plan" "asp" {
   name                = "${var.prefix}-asp-${random_integer.ri.result}"
