@@ -30,7 +30,7 @@ resource "azurerm_container_group" "container_group" {
 
   container {
     name   = "node-app"
-    image  = "${azurerm_container_registry.acr.login_server}/${var.tag_name}:latest"
+    image  = "${azurerm_container_registry.acr.login_server}/${var.acr_image_name}:latest"
     cpu    = "0.5"
     memory = "1.5"
 
@@ -46,6 +46,7 @@ resource "azurerm_container_group" "container_group" {
     password = azurerm_container_registry.acr.admin_password
   }
   restart_policy = "OnFailure"
+  depends_on     = [azurerm_container_registry.acr]
 }
 
 resource "azurerm_service_plan" "asp" {
