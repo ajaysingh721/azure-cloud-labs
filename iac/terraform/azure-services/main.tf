@@ -20,13 +20,32 @@ resource "azurerm_container_registry" "acr" {
   tags = {
     environment = "dev"
   }
+}
 
-  identity {
-    type         = "SystemAssigned"
-    identity_ids = [data.azurerm_client_config.current.object_id]
+resource "azurerm_container_group" "container_group" {
+  name                = var.aci_name
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  os_type             = "Linux"
+
+  container {
+    name   = "node-app"
+    image  = "${azurerm_container_registry.acr.login_server}/${var.tag_name}:latest"
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 8080
+      protocol = "TCP"
+    }
   }
 
-
+  image_registry_credential {
+    server   = azurerm_container_registry.acr.login_server
+    username = azurerm_container_registry.acr.admin_username
+    password = azurerm_container_registry.acr.admin_password
+  }
+  restart_policy = "OnFailure"
 }
 
 resource "azurerm_service_plan" "asp" {
