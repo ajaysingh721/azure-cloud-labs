@@ -1,7 +1,7 @@
 # Dockerfile for node web 
 
 # Use the official image as a parent image
-FROM node:lts-bullseye as build
+FROM node:lts-bullseye AS build
 
 # Set the working directory
 WORKDIR /app
@@ -22,10 +22,8 @@ ARG configuration=production
 RUN npm run build -- --output-path=./dist --configuration $configuration
 
 # nginx stage
-FROM nginxinc/nginx-unprivileged:stable-bullseye-perl as host
+FROM nginxinc/nginx-unprivileged:stable-bullseye-perl AS host
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
-
-
