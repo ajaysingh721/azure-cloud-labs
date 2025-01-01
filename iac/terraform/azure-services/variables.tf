@@ -81,3 +81,12 @@ variable "restart_policy" {
   }
 }
 
+variable "acr_admin_username" {
+  type        = string
+  description = "The admin username for the Azure Container Registry"
+}
+
+variable "acr_admin_password" {
+  type        = string
+  description = "The admin password for the Azure Container Registry"
+}

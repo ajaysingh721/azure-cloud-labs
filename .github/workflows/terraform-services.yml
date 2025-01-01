@@ -25,8 +25,8 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_ACCESS_KEY: ${{ secrets.AZURE_TFSA_ACCESS_KEY }}
       AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
-      ACR_USERNAME: ${{ vars.ACR_USERNAME }}
-      ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+      ACR_ADMIN_USER: ${{ vars.ACR_ADMIN_USER }}
+      ACR_ADMIN_PASSWORD: ${{ secrets.ACR_ADMIN_PASSWORD }}
       ACR_NAME: ${{ vars.ACR_NAME }}
       ACR_IMAGE_NAME: ${{ vars.ACR_NAME }}
       WEB_APP_NAME: ${{ vars.WEB_APP_NAME }}
@@ -57,7 +57,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}"
+        run: terraform plan -out=main.tfplan -input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}" -var="acr_username=${{env.ACR_ADMIN_USER}}" -var="acr_password=${{env.ACR_ADMIN_PASSWORD}}"
 
       - name: Terraform ${{ inputs.choice }}
-        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}"
+        run: terraform ${{ inputs.choice }} -auto-approve --input=false -no-color -var="rg=${{env.AZURE_RESOURCE_GROUP}}" -var="tenant_id=${{env.ARM_TENANT_ID}}" -var="acr_name=${{env.ACR_NAME}}" -var="web_app_name=${{env.WEB_APP_NAME}}" -var="acr_username=${{env.ACR_ADMIN_USER}}" -var="acr_password=${{env.ACR_ADMIN_PASSWORD}}"

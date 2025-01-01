@@ -16,6 +16,12 @@ resource "azurerm_container_registry" "acr" {
   location            = data.azurerm_resource_group.rg.location
   sku                 = "Standard"
   admin_enabled       = true
+  admin_username      = var.acr_admin_username
+  admin_password      = var.acr_admin_password
+
+  tags = {
+    environment = "dev"
+  }
 }
 
 
@@ -62,6 +68,5 @@ resource "azurerm_application_insights" "app_insights" {
   tags = {
     environment = "dev"
   }
-
 }
 
