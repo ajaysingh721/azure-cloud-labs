@@ -3,11 +3,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 2.0"
+      version = ">= 4.14.0"
     }
   }
 
-  required_version = ">= 0.14.9"
+  required_version = ">= 1.10.3"
 
   backend "azurerm" {
     storage_account_name = "terraformstate1231sa"
