@@ -46,7 +46,13 @@ resource "azurerm_container_group" "container_group" {
     password = azurerm_container_registry.acr.admin_password
   }
   restart_policy = "OnFailure"
-  depends_on     = [azurerm_container_registry.acr]
+
+  lifecycle {
+    ignore_changes = [
+      "container.0.image",
+    ]
+  }
+  depends_on = [azurerm_container_registry.acr]
 }
 
 resource "azurerm_service_plan" "asp" {
