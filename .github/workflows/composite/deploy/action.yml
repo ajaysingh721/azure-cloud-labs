@@ -20,12 +20,6 @@ inputs:
   credentials:
     description: 'Azure credentials'
     required: true
-  acr-username:
-    description: 'Azure Container Registry username'
-    required: true
-  acr-password:
-    description: 'Azure Container Registry password'
-    required: true
   web-app-name:
     description: 'Name of the Azure Web App'
     required: true
