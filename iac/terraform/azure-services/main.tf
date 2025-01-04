@@ -45,11 +45,6 @@ resource "azurerm_container_group" "container_group" {
     image  = "nginix:latest"
     cpu    = "1"
     memory = "2"
-
-    ports {
-      port     = 80
-      protocol = "TCP"
-    }
   }
 }
 
