@@ -19,7 +19,7 @@ variable "tenant_id" {
 variable "aci_name" {
   description = "The name of the Container Instance"
   type        = string
-  default     = "aclacr"
+  default     = "aclaci"
 }
 
 variable "web_app_name" {
@@ -32,7 +32,7 @@ variable "web_app_name" {
 variable "acr_name" {
   description = "The name of the Azure Container Registry"
   type        = string
-  default     = "aclci"
+  default     = "aclcr"
 }
 
 variable "acr_image_name" {
