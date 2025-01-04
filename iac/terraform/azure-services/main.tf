@@ -39,6 +39,13 @@ resource "azurerm_container_group" "container_group" {
       protocol = "TCP"
     }
   }
+
+  container {
+    name   = "acl-app-test"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+    cpu    = "1"
+    memory = "2"
+  }
 }
 
 // ontainer app environment
@@ -72,31 +79,31 @@ resource "azurerm_container_app" "app_service" {
 }
 
 
-resource "azurerm_service_plan" "asp" {
-  name                = "${var.prefix}-asp-${random_integer.ri.result}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
-  sku_name            = "B1"
-  os_type             = "Linux"
-}
+# resource "azurerm_service_plan" "asp" {
+#   name                = "${var.prefix}-asp-${random_integer.ri.result}"
+#   resource_group_name = data.azurerm_resource_group.rg.name
+#   location            = data.azurerm_resource_group.rg.location
+#   sku_name            = "B1"
+#   os_type             = "Linux"
+# }
 
-resource "azurerm_linux_web_app" "lwa" {
-  name                = var.web_app_name
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
-  service_plan_id     = azurerm_service_plan.asp.id
-  https_only          = true
+# resource "azurerm_linux_web_app" "lwa" {
+#   name                = var.web_app_name
+#   resource_group_name = data.azurerm_resource_group.rg.name
+#   location            = data.azurerm_resource_group.rg.location
+#   service_plan_id     = azurerm_service_plan.asp.id
+#   https_only          = true
 
-  app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-  }
+#   app_settings = {
+#     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+#   }
 
-  site_config {
-    minimum_tls_version = "1.2"
-  }
+#   site_config {
+#     minimum_tls_version = "1.2"
+#   }
 
-  depends_on = [azurerm_service_plan.asp]
-}
+#   depends_on = [azurerm_service_plan.asp]
+# }
 
 // Log analytics workspace
 resource "azurerm_log_analytics_workspace" "law" {
