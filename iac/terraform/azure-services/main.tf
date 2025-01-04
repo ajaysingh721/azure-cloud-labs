@@ -35,65 +35,41 @@ resource "azurerm_container_group" "container_group" {
     memory = "2"
 
     ports {
-      port     = 8080
-      protocol = "TCP"
-    }
-  }
-
-  container {
-    name   = "acl-app-test"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-    cpu    = "1"
-    memory = "2"
-
-    ports {
       port     = 80
-      protocol = "TCP"
-    }
-  }
-
-   container {
-    name   = "acl-app-test"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-    cpu    = "1"
-    memory = "2"
-
-    ports {
-      port     = 443
       protocol = "TCP"
     }
   }
 }
 
 // ontainer app environment
-# resource "azurerm_container_app_environment" "aca_env" {
-#   name                = "acl-app-prod"
-#   resource_group_name = data.azurerm_resource_group.rg.name
-#   location            = data.azurerm_resource_group.rg.location
-#   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+resource "azurerm_container_app_environment" "aca_env" {
+  name                = "acl-app-prod"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
 
-#   depends_on = [azurerm_log_analytics_workspace.law]
-# }
+  depends_on = [azurerm_log_analytics_workspace.law]
+}
 
-# // Azure container app service
-# resource "azurerm_container_app" "app_service" {
-#   name                = "acl-prod-app"
-#   resource_group_name = data.azurerm_resource_group.rg.name
-#   container_app_environment_id = azurerm_container_app_environment.aca_env.id
-#   revision_mode = "Single"
+// Azure container app service
+resource "azurerm_container_app" "app_service" {
+  name                = "acl-prod-app"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  container_app_environment_id = azurerm_container_app_environment.aca_env.id
+  revision_mode = "Single"
 
-#   template {
-#     container {
-#       name   = "aclprodcontainer"
-#       image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-#       cpu    = 1
-#       memory = "2"
-#     }
+  template {
+    container {
+      name   = "aclprodcontainer"
+      image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+      cpu    = 1
+      memory = "2"
+    }
     
-#   }
+  }
 
-#   depends_on = [azurerm_container_app_environment.aca_env]
-# }
+  depends_on = [azurerm_container_app_environment.aca_env]
+}
 
 
 resource "azurerm_service_plan" "asp" {
