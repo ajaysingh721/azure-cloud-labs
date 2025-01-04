@@ -39,13 +39,6 @@ resource "azurerm_container_group" "container_group" {
       protocol = "TCP"
     }
   }
-
-  container {
-    name   = "acl-app-test"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-    cpu    = "1"
-    memory = "2"
-  }
 }
 
 // ontainer app environment
@@ -72,6 +65,7 @@ resource "azurerm_container_app" "app_service" {
       cpu    = 1
       memory = "2"
     }
+    
   }
 
   depends_on = [azurerm_container_app_environment.aca_env]
