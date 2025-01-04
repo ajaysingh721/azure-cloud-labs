@@ -67,7 +67,7 @@ resource "azurerm_container_app" "app_service" {
 
   template {
     container {
-      name   = "examplecontainerapp"
+      name   = "aclprodcontainer"
       image  = "mcr.microsoft.com/k8se/quickstart:latest"
       cpu    = 0.25
       memory = "0.5Gi"
