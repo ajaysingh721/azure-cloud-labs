@@ -35,7 +35,7 @@ resource "azurerm_container_group" "container_group" {
     memory = "2"
 
     ports {
-      port     = 80
+      port     = 8080
       protocol = "TCP"
     }
   }
@@ -45,65 +45,82 @@ resource "azurerm_container_group" "container_group" {
     image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
     cpu    = "1"
     memory = "2"
+
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+
+   container {
+    name   = "acl-app-test"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+    cpu    = "1"
+    memory = "2"
+
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
   }
 }
 
 // ontainer app environment
-resource "azurerm_container_app_environment" "aca_env" {
-  name                = "acl-app-prod"
+# resource "azurerm_container_app_environment" "aca_env" {
+#   name                = "acl-app-prod"
+#   resource_group_name = data.azurerm_resource_group.rg.name
+#   location            = data.azurerm_resource_group.rg.location
+#   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+
+#   depends_on = [azurerm_log_analytics_workspace.law]
+# }
+
+# // Azure container app service
+# resource "azurerm_container_app" "app_service" {
+#   name                = "acl-prod-app"
+#   resource_group_name = data.azurerm_resource_group.rg.name
+#   container_app_environment_id = azurerm_container_app_environment.aca_env.id
+#   revision_mode = "Single"
+
+#   template {
+#     container {
+#       name   = "aclprodcontainer"
+#       image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+#       cpu    = 1
+#       memory = "2"
+#     }
+    
+#   }
+
+#   depends_on = [azurerm_container_app_environment.aca_env]
+# }
+
+
+resource "azurerm_service_plan" "asp" {
+  name                = "${var.prefix}-asp-${random_integer.ri.result}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
-
-  depends_on = [azurerm_log_analytics_workspace.law]
+  sku_name            = "B1"
+  os_type             = "Linux"
 }
 
-// Azure container app service
-resource "azurerm_container_app" "app_service" {
-  name                = "acl-prod-app"
+resource "azurerm_linux_web_app" "lwa" {
+  name                = var.web_app_name
   resource_group_name = data.azurerm_resource_group.rg.name
-  container_app_environment_id = azurerm_container_app_environment.aca_env.id
-  revision_mode = "Single"
+  location            = data.azurerm_resource_group.rg.location
+  service_plan_id     = azurerm_service_plan.asp.id
+  https_only          = true
 
-  template {
-    container {
-      name   = "aclprodcontainer"
-      image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
-      cpu    = 1
-      memory = "2"
-    }
-    
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
 
-  depends_on = [azurerm_container_app_environment.aca_env]
+  site_config {
+    minimum_tls_version = "1.2"
+  }
+
+  depends_on = [azurerm_service_plan.asp]
 }
-
-
-# resource "azurerm_service_plan" "asp" {
-#   name                = "${var.prefix}-asp-${random_integer.ri.result}"
-#   resource_group_name = data.azurerm_resource_group.rg.name
-#   location            = data.azurerm_resource_group.rg.location
-#   sku_name            = "B1"
-#   os_type             = "Linux"
-# }
-
-# resource "azurerm_linux_web_app" "lwa" {
-#   name                = var.web_app_name
-#   resource_group_name = data.azurerm_resource_group.rg.name
-#   location            = data.azurerm_resource_group.rg.location
-#   service_plan_id     = azurerm_service_plan.asp.id
-#   https_only          = true
-
-#   app_settings = {
-#     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-#   }
-
-#   site_config {
-#     minimum_tls_version = "1.2"
-#   }
-
-#   depends_on = [azurerm_service_plan.asp]
-# }
 
 // Log analytics workspace
 resource "azurerm_log_analytics_workspace" "law" {
