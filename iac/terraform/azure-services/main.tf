@@ -30,7 +30,7 @@ resource "azurerm_container_group" "container_group" {
 
   container {
     name   = "acl-app-dev"
-    image  = "nginix:latest"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
     cpu    = "1"
     memory = "2"
 
@@ -42,7 +42,7 @@ resource "azurerm_container_group" "container_group" {
 
   container {
     name   = "acl-app-test"
-    image  = "nginix:latest"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
     cpu    = "1"
     memory = "2"
   }
