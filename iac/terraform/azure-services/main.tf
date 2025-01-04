@@ -67,7 +67,6 @@ resource "azurerm_container_app_environment" "aca_env" {
 resource "azurerm_container_app" "app_service" {
   name                = "acl-prod-app"
   resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   revision_mode = "Single"
 
