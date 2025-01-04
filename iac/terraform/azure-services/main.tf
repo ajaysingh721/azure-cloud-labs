@@ -68,9 +68,9 @@ resource "azurerm_container_app" "app_service" {
   template {
     container {
       name   = "aclprodcontainer"
-      image  = "mcr.microsoft.com/k8se/quickstart:latest"
-      cpu    = 0.25
-      memory = "0.5Gi"
+      image  = "mcr.microsoft.com/azuredocs/aci-helloworld:latest"
+      cpu    = 1
+      memory = "2"
     }
   }
 
