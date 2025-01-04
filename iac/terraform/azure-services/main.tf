@@ -29,26 +29,60 @@ resource "azurerm_container_group" "container_group" {
   os_type             = "Linux"
 
   container {
-    name   = "node-app"
+    name   = "acl-app-dev"
     image  = "nginix:latest"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "1"
+    memory = "2"
 
     ports {
-      port     = 8080
+      port     = 80
       protocol = "TCP"
     }
   }
 
-  image_registry_credential {
-    server   = azurerm_container_registry.acr.login_server
-    username = azurerm_container_registry.acr.admin_username
-    password = azurerm_container_registry.acr.admin_password
-  }
-  restart_policy = "OnFailure"
+  container {
+    name   = "acl-app-test"
+    image  = "nginix:latest"
+    cpu    = "1"
+    memory = "2"
 
-  depends_on = [azurerm_container_registry.acr]
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
 }
+
+// ontainer app environment
+resource "azurerm_container_app_environment" "aca_env" {
+  name                = "acl-app-prod"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+
+  depends_on = [azurerm_log_analytics_workspace.law]
+}
+
+// Azure container app service
+resource "azurerm_container_app" "app_service" {
+  name                = "acl-prod-app"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  container_app_environment_id = azurerm_container_app_environment.aca_env.id
+  revision_mode = "Single"
+
+  template {
+    container {
+      name   = "examplecontainerapp"
+      image  = "mcr.microsoft.com/k8se/quickstart:latest"
+      cpu    = 0.25
+      memory = "0.5Gi"
+    }
+  }
+
+  depends_on = [azurerm_container_app_environment.aca_env]
+}
+
 
 resource "azurerm_service_plan" "asp" {
   name                = "${var.prefix}-asp-${random_integer.ri.result}"
