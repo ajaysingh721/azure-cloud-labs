@@ -95,7 +95,7 @@ resource "azurerm_linux_web_app" "lwa" {
 }
 
 resource "azurerm_linux_web_app" "lwadev" {
-  name                = "${var.web_app_name}-dev_01"
+  name                = "dev-${var.web_app_name}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   service_plan_id     = azurerm_service_plan.asp.id
@@ -113,7 +113,7 @@ resource "azurerm_linux_web_app" "lwadev" {
 }
 
 resource "azurerm_linux_web_app" "lwaqa" {
-  name                = "${var.web_app_name}-qa"
+  name                = "qa-${var.web_app_name}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   service_plan_id     = azurerm_service_plan.asp.id
