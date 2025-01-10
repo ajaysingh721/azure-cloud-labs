@@ -36,14 +36,14 @@ jobs:
     needs: [build]
     environment:
       name: dev
-      url: ${{ steps.deploy.outputs.webapp-url }}
+      url: ${{ steps.deploy-dev.outputs.webapp-url }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Deploy image to Azure Web App
-        id: deploy
+        id: deploy-dev
         uses: ./.github/workflows/composite/deploy
         with:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -62,14 +62,14 @@ jobs:
     needs: [dev]
     environment:
       name: qa
-      url: ${{ steps.deploy.outputs.webapp-url }}
+      url: ${{ steps.deploy-qa.outputs.webapp-url }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Deploy image to Azure Web App
-        id: deploy
+        id: deploy-qa
         uses: ./.github/workflows/composite/deploy
         with:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -88,14 +88,14 @@ jobs:
     needs: [qa]
     environment:
       name: prd
-      url: ${{ steps.deploy.outputs.webapp-url }}
+      url: ${{ steps.deploy-prod.outputs.webapp-url }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Deploy image to Azure Web App
-        id: deploy
+        id: deploy-prod
         uses: ./.github/workflows/composite/deploy
         with:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
