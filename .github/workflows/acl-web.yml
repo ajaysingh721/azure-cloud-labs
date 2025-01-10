@@ -1,4 +1,4 @@
-name: 2. Build ACL web (ACR)
+name: 2. Build and deploy image
 
 on:
   workflow_dispatch:
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to Azure Web App
+      - name: Deploy image to Azure Web App
         id: deploy
         uses: ./.github/workflows/composite/deploy
         with:

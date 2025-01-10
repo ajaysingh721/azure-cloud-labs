@@ -53,6 +53,9 @@ TestResult.xml
 nunit-*.xml
 github-secrets.txt
 
+# CodeQL
+codeql-databases
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
