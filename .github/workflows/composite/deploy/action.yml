@@ -34,7 +34,7 @@ runs:
         creds: ${{ inputs.credentials }}
 
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       with:
         app-name: ${{inputs.web-app-name}}
         images: ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }}
