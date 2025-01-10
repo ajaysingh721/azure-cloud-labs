@@ -28,7 +28,7 @@ jobs:
           source-root-path: ${{ env.SCOURCE_ROOT_PATH }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
 
-  deploy-dev:
+  dev:
     permissions:
       contents: read
       id-token: write
@@ -36,7 +36,7 @@ jobs:
     needs: [build]
     environment:
       name: dev
-      url: ${{steps.deploy.outputs.url}}
+      url: ${{ steps.deploy.outputs.webapp-url }}
     
     steps:
       - name: Checkout code
