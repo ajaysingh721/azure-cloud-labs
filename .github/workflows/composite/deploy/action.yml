@@ -34,10 +34,7 @@ runs:
         creds: ${{ inputs.credentials }}
 
     - name: Deploy to Azure Web App
-      shell: bash
-      run: |
-        az webapp config container set --name ${{inputs.web-app-name}} \
-        --container-registry-url https://${{ inputs.registry-name }}.azurecr.io \
-        --container-image-name ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }} \
-        --resource-group ${{inputs.resource-group}} \
-        --subscription ${{ inputs.subscription-id }}
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{inputs.web-app-name}}
+        image: ${{ inputs.registry-name }}.azurecr.io/${{inputs.image-name}}:${{ inputs.image-tag }}
