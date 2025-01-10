@@ -16,10 +16,6 @@ resource "azurerm_container_registry" "acr" {
   location            = data.azurerm_resource_group.rg.location
   sku                 = "Standard"
   admin_enabled       = false
-
-  tags = {
-    environment = "dev"
-  }
 }
 
 resource "azurerm_container_group" "container_group" {
