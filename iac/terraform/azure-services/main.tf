@@ -99,6 +99,60 @@ resource "azurerm_linux_web_app" "lwa" {
   depends_on = [azurerm_service_plan.asp]
 }
 
+resource "azurerm_linux_web_app" "lwadev" {
+  name                = "${var.web_app_name}-dev"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  service_plan_id     = azurerm_service_plan.asp.id
+  https_only          = true
+
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+  }
+
+  site_config {
+    minimum_tls_version = "1.2"
+  }
+
+  depends_on = [azurerm_service_plan.asp]
+}
+
+resource "azurerm_linux_web_app" "lwaqa" {
+  name                = "${var.web_app_name}-qa"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  service_plan_id     = azurerm_service_plan.asp.id
+  https_only          = true
+
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+  }
+
+  site_config {
+    minimum_tls_version = "1.2"
+  }
+
+  depends_on = [azurerm_service_plan.asp]
+}
+
+resource "azurerm_linux_web_app" "lwaprd" {
+  name                = "${var.web_app_name}-prd"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  service_plan_id     = azurerm_service_plan.asp.id
+  https_only          = true
+
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+  }
+
+  site_config {
+    minimum_tls_version = "1.2"
+  }
+
+  depends_on = [azurerm_service_plan.asp]
+}
+
 // Log analytics workspace
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "${var.prefix}-law-${random_integer.ri.result}"
