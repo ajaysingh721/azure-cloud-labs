@@ -1,0 +1,55 @@
+name: 2. Build ACL web (ACR)
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKERFILE_PATH: 'src/web/Dockerfile'
+  SCOURCE_ROOT_PATH: 'src/web'
+  AZURE_CREDENTIALS: '{ clientId: "${{ secrets.AZURE_CLIENT_ID }}", clientSecret: "${{ secrets.AZURE_CLIENT_SECRET }}", subscriptionId: "${{ secrets.AZURE_SUBSCRIPTION_ID }}", tenantId: "${{ secrets.AZURE_TENANT_ID }}" }'
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and push image to ACR
+        uses: ./.github/workflows/composite/build
+        with:
+          image-name: ${{ vars.ACR_IMAGE_NAME }}
+          registry-name: ${{ vars.ACR_NAME }}
+          image-tag: ${{github.run_number}}
+          dockerfile-path: ${{ env.DOCKERFILE_PATH }}
+          source-root-path: ${{ env.SCOURCE_ROOT_PATH }}
+          credentials: ${{ env.AZURE_CREDENTIALS }}
+
+  deploy-dev:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: [build]
+    environment:
+      name: dev
+      url: ${{steps.deploy.outputs.url}}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Azure Web App
+        id: deploy
+        uses: ./.github/workflows/composite/deploy
+        with:
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+          image-name: ${{ vars.ACR_IMAGE_NAME }}
+          registry-name: ${{ vars.ACR_NAME }}
+          image-tag: ${{github.run_number}}
+          credentials: ${{ env.AZURE_CREDENTIALS }}
+          web-app-name: ${{ vars.WEB_APP_NAME }}
