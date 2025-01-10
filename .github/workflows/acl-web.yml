@@ -53,3 +53,55 @@ jobs:
           image-tag: ${{github.run_number}}
           credentials: ${{ env.AZURE_CREDENTIALS }}
           web-app-name: ${{ vars.WEB_APP_NAME }}
+
+  qa:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: [dev]
+    environment:
+      name: qa
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy image to Azure Web App
+        id: deploy
+        uses: ./.github/workflows/composite/deploy
+        with:
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+          image-name: ${{ vars.ACR_IMAGE_NAME }}
+          registry-name: ${{ vars.ACR_NAME }}
+          image-tag: ${{github.run_number}}
+          credentials: ${{ env.AZURE_CREDENTIALS }}
+          web-app-name: ${{ vars.WEB_APP_NAME }}
+
+  prd:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: [qa]
+    environment:
+      name: prd
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy image to Azure Web App
+        id: deploy
+        uses: ./.github/workflows/composite/deploy
+        with:
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+          image-name: ${{ vars.ACR_IMAGE_NAME }}
+          registry-name: ${{ vars.ACR_NAME }}
+          image-tag: ${{github.run_number}}
+          credentials: ${{ env.AZURE_CREDENTIALS }}
+          web-app-name: ${{ vars.WEB_APP_NAME }}

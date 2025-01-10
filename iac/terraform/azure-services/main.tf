@@ -16,6 +16,7 @@ resource "azurerm_container_registry" "acr" {
   location            = data.azurerm_resource_group.rg.location
   sku                 = "Standard"
   admin_enabled       = true
+  retention_policy_in_days = 15
 
   tags = {
     environment = "dev"
@@ -43,7 +44,7 @@ resource "azurerm_container_group" "container_group" {
 
 # // ontainer app environment
 # resource "azurerm_container_app_environment" "aca_env" {
-#   name                = "acl-app-prod"
+#   name                = "acae-prod"
 #   resource_group_name = data.azurerm_resource_group.rg.name
 #   location            = data.azurerm_resource_group.rg.location
 #   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
