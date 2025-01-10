@@ -45,7 +45,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          creds: ${{ inputs.credentials }}
+          creds: ${{ env.AZURE_CREDENTIALS }}
   
       - name: Deploy image to Azure Web App
         uses: azure/webapps-deploy@v3
