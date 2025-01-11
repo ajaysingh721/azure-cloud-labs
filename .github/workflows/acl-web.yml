@@ -9,24 +9,24 @@ env:
   AZURE_CREDENTIALS: '{ "clientId": "${{ secrets.AZURE_CLIENT_ID }}", "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}", "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}", "tenantId": "${{ secrets.AZURE_TENANT_ID }}" }'
 
 jobs:
-  # build:
-  #   permissions:
-  #     contents: read
-  #     id-token: write
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  build:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Build and push image to ACR
-  #       uses: ./.github/workflows/composite/build
-  #       with:
-  #         image-name: ${{ vars.ACR_IMAGE_NAME }}
-  #         registry-name: ${{ vars.ACR_NAME }}
-  #         image-tag: ${{github.run_number}}
-  #         dockerfile-path: ${{ env.DOCKERFILE_PATH }}
-  #         source-root-path: ${{ env.SCOURCE_ROOT_PATH }}
-  #         credentials: ${{ env.AZURE_CREDENTIALS }}
+      - name: Build and push image to ACR
+        uses: ./.github/workflows/composite/build
+        with:
+          image-name: ${{ vars.ACR_IMAGE_NAME }}
+          registry-name: ${{ vars.ACR_NAME }}
+          image-tag: ${{github.run_number}}
+          dockerfile-path: ${{ env.DOCKERFILE_PATH }}
+          source-root-path: ${{ env.SCOURCE_ROOT_PATH }}
+          credentials: ${{ env.AZURE_CREDENTIALS }}
 
   dev:
     permissions:
@@ -49,7 +49,7 @@ jobs:
           resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
           image-name: ${{ vars.ACR_IMAGE_NAME }}
           registry-name: ${{ vars.ACR_NAME }}
-          image-tag: 48
+          image-tag: ${{ github.run_number }}
           credentials: ${{ env.AZURE_CREDENTIALS }}
           web-app-name: ${{ vars.WEB_APP_NAME }}
 
