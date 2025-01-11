@@ -36,7 +36,7 @@ jobs:
     environment:
       name: dev
       url: ${{ steps.deploy-dev.outputs.host-url }}
-    
+    needs: [build]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
