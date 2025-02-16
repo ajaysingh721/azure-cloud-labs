@@ -1,10 +1,10 @@
 
-namespace WeatherAPI.Domain.Entities
+namespace AzureCloudLabs.Api.Domain.Entities
 {
 
     public class BaseEntity
     {
-        public int Id { get; set; }
+        public required string Id { get; set; }
 
         public DateTime CreatedAt { get; set; }
     }

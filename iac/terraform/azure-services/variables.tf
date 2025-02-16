@@ -26,7 +26,6 @@ variable "web_app_name" {
   description = "The name of the Web App"
   type        = string
   default     = "aclweb"
-
 }
 
 variable "acr_name" {

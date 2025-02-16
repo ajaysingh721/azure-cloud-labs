@@ -1,10 +1,10 @@
-using WeatherAPI.Domain.Entities;
+using AzureCloudLabs.Api.Domain.Entities;
 
-namespace WeatherAPI;
+namespace AzureCloudLabs.Api;
 
-public class WeatherForecast:BaseEntity
+public class WeatherForecast : BaseEntity
 {
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
     public int TemperatureC { get; set; }
 

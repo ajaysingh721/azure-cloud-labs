@@ -1,10 +1,10 @@
 // API base controller
 
 using Microsoft.AspNetCore.Mvc;
-using WeatherAPI.Domain.Entities;
+using AzureCloudLabs.Api.Domain.Entities;
 
 
-[Route("api/")]
+[Route("api/[controllers]")]
 public class ApiBaseController<T>: ControllerBase where T :BaseEntity
 {
     protected readonly ILogger<T> _logger;
